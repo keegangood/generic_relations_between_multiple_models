@@ -1,5 +1,5 @@
 from pathlib import Path
-import decouple
+import decouple # to pull secrets from .env file
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -8,9 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = decouple.config('DJANGO_DEBUG')
 
 if DEBUG:
-    SECRET_KEY = decouple.config('DJANGO_SECRET_KEY_DEVELOPMENT')
+    SECRET_KEY = decouple.config('DJANGO_SECRET_KEY_DEV')
 else:
-    SECRET_KEY = decouple.config('DJANGO_SECRET_KEY_PRODUCTION')
+    SECRET_KEY = decouple.config('DJANGO_SECRET_KEY_PRO')
 
 ALLOWED_HOSTS = []
 
@@ -24,6 +24,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'journals',
 ]
 
 MIDDLEWARE = [

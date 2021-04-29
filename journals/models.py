@@ -4,7 +4,7 @@ from django.contrib.contenttypes.fields import GenericForeignKey, GenericRelatio
 from django.contrib.contenttypes.models import ContentType
 
 class Note(models.Model):
-    text = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
 
     def __str__(self):
         return f'{self.id}. {self.text}'
@@ -15,7 +15,7 @@ class Task(models.Model):
     deadline = models.DateTimeField(null=True, blank=True)
     
     def __str__(self):
-        return f'{self.id}. {self.text}'
+        return f'{self.id}. {self.title}'
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
@@ -23,7 +23,7 @@ class Event(models.Model):
     end_date = models.DateTimeField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.id}. {self.text}'
+        return f'{self.id}. {self.title}'
 
 class JournalItem(models.Model):
     NOTE = 'N'
@@ -49,3 +49,7 @@ class JournalItem(models.Model):
     content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name="object_item")
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
+
+    def __str__(self):
+        # username - item_type - title
+        return f'{self.owner.username} - JournalItem #{self.id} - {[item[1] for item in self.ITEM_TYPES if item[0]==self.item_type][0]}: {self.content_object.title}'

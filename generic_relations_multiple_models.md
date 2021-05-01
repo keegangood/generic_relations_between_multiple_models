@@ -134,7 +134,7 @@ Now we can head to a view function or to the Django shell to create some Journal
 >>> task_1 = Task.objects.create(title=f"Walk the dog")
 #1. Walk the dog
 
-# create a JournalItem with the event as the content object
+# create a JournalItem with the task as the content object
 >>> j_task_1 = JournalItem.objects.create(content_object=task_1, item_type=JournalItem.TASK, owner=user)
 
 >>> j_task_1
@@ -143,6 +143,9 @@ User1 - JournalItem #1 - Task: Walk the dog
 >>> j_task_1.content_object
 1. Walk the dog
 
+# create a JournalItem with a note as a content object
+>>> j_note_1 = JournalItem.objects.create(content_object=note_1)
+
 >>> j_note_1
 KG - JournalItem #2 - Note: Avoid Main St.
 
@@ -150,7 +153,7 @@ KG - JournalItem #2 - Note: Avoid Main St.
 1. Avoid Main St.
 ```
 
-Awesome! So as we can see, JournalItems can be created with any
+Awesome! So as we can see, JournalItems can be created 
 
 
 

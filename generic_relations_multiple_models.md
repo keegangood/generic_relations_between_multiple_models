@@ -124,6 +124,37 @@ class JournalItem(models.Model):
 ---
 Now we can head to a view function or to the Django shell to create some JournalItems.
 
+```
+>>> from django.contrib.auth import get_user_model
+>>> from journals.models import Note, Task, Event, JournalItem
+
+# the first user will be the owner
+>>> user = get_user_model().objects.first()
+
+>>> task_1 = Task.objects.create(title=f"Walk the dog")
+#1. Walk the dog
+
+# create a JournalItem with the event as the content object
+>>> j_task_1 = JournalItem.objects.create(content_object=task_1, item_type=JournalItem.TASK, owner=user)
+
+>>> j_task_1
+User1 - JournalItem #1 - Task: Walk the dog
+
+>>> j_task_1.content_object
+1. Walk the dog
+
+>>> j_note_1
+KG - JournalItem #2 - Note: Avoid Main St.
+
+>>> j_note_1.content_object
+1. Avoid Main St.
+```
+
+Awesome! So as we can see, JournalItems can be created with any
+
+
+
+
 ### journals/views.py
 ```python
 from django.contrib.auth import get_user_model

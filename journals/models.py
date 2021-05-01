@@ -7,7 +7,7 @@ class Note(models.Model):
     title = models.CharField(max_length=200)
 
     def __str__(self):
-        return f'{self.id}. {self.text}'
+        return f'{self.id}. {self.title}'
 
 class Task(models.Model):
     title = models.CharField(max_length=200)
@@ -52,4 +52,5 @@ class JournalItem(models.Model):
 
     def __str__(self):
         # username - item_type - title
-        return f'{self.owner.username} - JournalItem #{self.id} - {[item[1] for item in self.ITEM_TYPES if item[0]==self.item_type][0]}: {self.content_object.title}'
+        item_type = [item[1] for item in self.ITEM_TYPES if item[0]==self.item_type][0]
+        return f'{self.owner.username} - JournalItem #{self.id} - {item_type}: {self.content_object.title}'

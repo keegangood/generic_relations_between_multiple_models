@@ -132,10 +132,15 @@ Now we can head to a view function or to the Django shell to create some Journal
 >>> user = get_user_model().objects.first()
 
 >>> task_1 = Task.objects.create(title=f"Walk the dog")
-#1. Walk the dog
+>>> note_1 = Note.objects.create(title="Avoid Main St.")
+>>> event_1 = Event.objects.create(title="Saw a raccoon!")
 
-# create a JournalItem with the task as the content object
+# create JournalItems for the task, note and event
 >>> j_task_1 = JournalItem.objects.create(content_object=task_1, item_type=JournalItem.TASK, owner=user)
+
+>>> j_note_1 = JournalItem.objects.create(content_object=note_1)
+
+j_event_1 = JournalItem.objects.create(content_object=event_1, item_type=JournalItem.EVENT, owner=user)
 
 >>> j_task_1
 User1 - JournalItem #1 - Task: Walk the dog
@@ -143,17 +148,26 @@ User1 - JournalItem #1 - Task: Walk the dog
 >>> j_task_1.content_object
 1. Walk the dog
 
-# create a JournalItem with a note as a content object
->>> j_note_1 = JournalItem.objects.create(content_object=note_1)
 
 >>> j_note_1
-KG - JournalItem #2 - Note: Avoid Main St.
+User1 - JournalItem #2 - Note: Avoid Main St.
 
 >>> j_note_1.content_object
 1. Avoid Main St.
+
+
+>>> j_event_1
+User1 - JournalItem #3 - Event - Saw a raccoon!
+
+>>> j_event_1.content_object
+1. Saw a raccoon!
 ```
 
-Awesome! So as we can see, JournalItems can be created 
+Awesome! So as we can see, JournalItems can be created to refer to a particular instance of any of our three models.
+
+----
+
+Now, I wanted to be able to form a parent/child relationship between the various models
 
 
 

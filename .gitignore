@@ -250,5 +250,6 @@ Thumbs.db
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
+*.http
 
 # End of https://www.toptal.com/developers/gitignore/api/linux,vscode,django,python

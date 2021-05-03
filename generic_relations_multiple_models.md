@@ -179,6 +179,7 @@ Now, after creating all of the JournalItems, they can be parents/children of eac
 >>> j_task_1.children.add(j_event_1)
 
 >>> j_task_1.children.all()
+
 ```
 
 

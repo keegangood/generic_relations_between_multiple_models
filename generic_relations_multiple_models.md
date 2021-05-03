@@ -167,9 +167,19 @@ Awesome! So as we can see, JournalItems can be created to refer to a particular 
 
 ----
 
-Now, I wanted to be able to form a parent/child relationship between the various models
+Now, I wanted to be able to form a parent/child relationship between the various models. For this, I created a `parent` field which would draw a connection from a particular JournalItem to its parent. This will also keep track of the children of a particular `JournalItem` through the addition of the `related_name`. Since a `JournalItem` doesn't require a parent item, the `blank=True` and `null=True` attributes are also set. 
+```
+parent = models.ForeignKey('JournalItem', on_delete=models.CASCADE, related_name="children", null=True, blank=True)
+```
 
+Now, after creating all of the JournalItems, they can be parents/children of each other.
 
+```
+# add the event JournalItem to the list of children for the task
+>>> j_task_1.children.add(j_event_1)
+
+>>> j_task_1.children.all()
+```
 
 
 ### journals/views.py

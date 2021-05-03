@@ -1,4 +1,6 @@
 from django.contrib.auth import get_user_model
+from django.db.models import Prefetch
+from django.contrib.contenttypes.models import ContentType
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import JournalItemSerializer
@@ -39,3 +41,26 @@ def get_journal_items(request):
 
     print(j_task_1.content_object)
     print(j_note_1.content_object)
+
+    j_task_1.children.add(j_event_1)
+
+    print('children',j_task_1.children)
+
+    print("parent of event_1:",j_event_1.parent)
+    print("children of task_1:",j_task_1.children.all())
+
+    print('parent of event_1', j_event_1.parent)
+
+    j_task_1.children.add(j_note_1)
+
+    print("children of task_1:", j_task_1.children.all())
+
+    task_ct = ContentType.objects.get_for_model(Task)
+
+    print(task_ct)
+
+    tasks = JournalItem.objects.prefetch_related(
+        Prefetch('children')
+    ).filter(content_type=task_ct, object_id=task_1.id, item_type=JournalItem.TASK)
+    print(tasks)
+    # print('task', task.children.all())

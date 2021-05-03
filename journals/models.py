@@ -41,7 +41,7 @@ class JournalItem(models.Model):
     item_type = models.CharField(max_length=1, choices=ITEM_TYPES)
 
     # the user that is creating the item
-    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="journal_items")
 
     # ... other fields that will be on every Note, Task or Event
 
@@ -50,6 +50,8 @@ class JournalItem(models.Model):
     object_id = models.PositiveIntegerField()
     content_object = GenericForeignKey('content_type', 'object_id')
 
+    parent = models.ForeignKey('JournalItem', on_delete=models.CASCADE, related_name="children", null=True, blank=True)
+    
     def __str__(self):
         # username - item_type - title
         item_type = [item[1] for item in self.ITEM_TYPES if item[0]==self.item_type][0]
